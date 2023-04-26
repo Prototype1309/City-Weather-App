@@ -42,4 +42,4 @@ searchHistoryList.on("click","li.city-btn", function(event) {
     var value = $(this).data("value");
     currentConditionsRequest(value);
     searchHistory(value); 
-
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&units=imperial&appid=" + APIkey;
