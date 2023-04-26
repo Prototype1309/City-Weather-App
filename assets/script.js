@@ -1,3 +1,4 @@
+
 var searchHistoryList = $('#search-history-list');
 var searchCityInput = $("#search-city");
 var searchCityButton = $("#search-city-button");
@@ -11,18 +12,25 @@ var UVindex = $("#uv-index");
 
 var weatherContent = $("#weather-content");
 
+
 var APIkey = "a17e1499228be1f9c294ac18b234c7d7";
 
+
 var cityList = [];
+
 
 var currentDate = moment().format('L');
 $("#current-date").text("(" + currentDate + ")");
 
+
 initalizeHistory();
 showClear();
 
+
 $(document).on("submit", function(){
     event.preventDefault();
+
+ 
     var searchValue = searchCityInput.val().trim();
 
     currentConditionsRequest(searchValue)
@@ -30,20 +38,41 @@ $(document).on("submit", function(){
     searchCityInput.val(""); 
 });
 
+
+searchCityButton.on("click", function(event){
+    event.preventDefault();
+
+    var searchValue = searchCityInput.val().trim();
+
+    currentConditionsRequest(searchValue)
+    searchHistory(searchValue);    
+    searchCityInput.val(""); 
+});
+
 clearHistoryButton.on("click", function(){
- 
     cityList = [];
     listArray();
     
     $(this).addClass("hide");
 });
+
+
 searchHistoryList.on("click","li.city-btn", function(event) {
-    // console.log($(this).data("value"));
+
     var value = $(this).data("value");
     currentConditionsRequest(value);
     searchHistory(value); 
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&units=imperial&appid=" + APIkey;
 
+});
+
+
+
+
+function currentConditionsRequest(searchValue) {
+    
+
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + searchValue + "&units=imperial&appid=" + APIkey;
+    
 
     $.ajax({
         url: queryURL,
@@ -64,20 +93,17 @@ searchHistoryList.on("click","li.city-btn", function(event) {
         
 
         var UVurl = "https://api.openweathermap.org/data/2.5/uvi?&lat=" + lat + "&lon=" + lon + "&appid=" + APIkey;
-      
+
         $.ajax({
             url: UVurl,
             method: "GET"
         }).then(function(response){
-            // console.log("UV call: ")
-            // console.log(response);
             UVindex.text(response.value);
         });
 
         var countryCode = response.sys.country;
         var forecastURL = "https://api.openweathermap.org/data/2.5/forecast?&units=imperial&appid=" + APIkey + "&lat=" + lat +  "&lon=" + lon;
-        
-        // AJAX call for 5-day forecast
+
         $.ajax({
             url: forecastURL,
             method: "GET"
@@ -116,7 +142,7 @@ searchHistoryList.on("click","li.city-btn", function(event) {
                 forecastHumidity.text(response.list[i].main.humidity);
                 forecastHumidity.prepend("Humidity: ");
                 forecastHumidity.append("%");
-                
+
             }
         });
 
@@ -130,6 +156,8 @@ function searchHistory(searchValue) {
     if (searchValue) {
         if (cityList.indexOf(searchValue) === -1) {
             cityList.push(searchValue);
+
+      
             listArray();
             clearHistoryButton.removeClass("hide");
             weatherContent.removeClass("hide");
@@ -143,8 +171,8 @@ function searchHistory(searchValue) {
         }
     }
 }
+
 function listArray() {
-    
     searchHistoryList.empty();
     cityList.forEach(function(city){
         var searchHistoryItem = $('<li class="list-group-item city-btn">');
@@ -153,6 +181,7 @@ function listArray() {
         searchHistoryList.prepend(searchHistoryItem);
     });
     localStorage.setItem("cities", JSON.stringify(cityList));
+    
 }
 function initalizeHistory() {
     if (localStorage.getItem("cities")) {
@@ -165,6 +194,7 @@ function initalizeHistory() {
         }
     }
 }
+
 function showClear() {
     if (searchHistoryList.text() !== "") {
         clearHistoryButton.removeClass("hide");
