@@ -37,4 +37,9 @@ clearHistoryButton.on("click", function(){
     
     $(this).addClass("hide");
 });
+searchHistoryList.on("click","li.city-btn", function(event) {
+    // console.log($(this).data("value"));
+    var value = $(this).data("value");
+    currentConditionsRequest(value);
+    searchHistory(value); 
 
