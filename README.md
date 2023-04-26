@@ -2,7 +2,7 @@
 
 This project is a weather dashboard using the OpenWeather API.
 
-<a href= target="_blank">Click here</a> to view the project.
+<a href="https://prototype1309.github.io/City-Weather-App/" target="_blank">Click here</a> to view the project.
 
 
 ## Overview
@@ -58,5 +58,5 @@ so that I can plan a trip accordingly
 
 * Uses `localStorage` to bring up last searched city forecast and search history on page load).
 
-<a href= target="_blank">Click here</a> to view the project.
+<a href="https://prototype1309.github.io/City-Weather-App/" target="_blank">Click here</a> to view the project.
 
