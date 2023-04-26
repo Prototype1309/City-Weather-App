@@ -17,3 +17,24 @@ var cityList = [];
 
 var currentDate = moment().format('L');
 $("#current-date").text("(" + currentDate + ")");
+
+initalizeHistory();
+showClear();
+
+$(document).on("submit", function(){
+    event.preventDefault();
+    var searchValue = searchCityInput.val().trim();
+
+    currentConditionsRequest(searchValue)
+    searchHistory(searchValue);
+    searchCityInput.val(""); 
+});
+
+clearHistoryButton.on("click", function(){
+ 
+    cityList = [];
+    listArray();
+    
+    $(this).addClass("hide");
+});
+
