@@ -58,5 +58,5 @@ so that I can plan a trip accordingly
 
 * Uses `localStorage` to bring up last searched city forecast and search history on page load).
 
-<a href="https://franklintendo.github.io/homework-6-weather-dashboard/" target="_blank">Click here</a> to view the project.
+<a href= target="_blank">Click here</a> to view the project.
 
