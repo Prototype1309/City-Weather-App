@@ -64,7 +64,7 @@ searchHistoryList.on("click","li.city-btn", function(event) {
         
 
         var UVurl = "https://api.openweathermap.org/data/2.5/uvi?&lat=" + lat + "&lon=" + lon + "&appid=" + APIkey;
-        // AJAX Call for UV index
+      
         $.ajax({
             url: UVurl,
             method: "GET"
@@ -117,10 +117,6 @@ searchHistoryList.on("click","li.city-btn", function(event) {
                 forecastHumidity.prepend("Humidity: ");
                 forecastHumidity.append("%");
                 
-                // console.log(response.list[i].dt_txt);
-                // console.log(response.list[i].main.temp);
-                // console.log(response.list[i].main.humidity);
-
             }
         });
 
@@ -129,3 +125,21 @@ searchHistoryList.on("click","li.city-btn", function(event) {
     
 
 };
+
+function searchHistory(searchValue) {
+    if (searchValue) {
+        if (cityList.indexOf(searchValue) === -1) {
+            cityList.push(searchValue);
+            listArray();
+            clearHistoryButton.removeClass("hide");
+            weatherContent.removeClass("hide");
+        } else {
+            var removeIndex = cityList.indexOf(searchValue);
+            cityList.splice(removeIndex, 1);
+            cityList.push(searchValue);
+            listArray();
+            clearHistoryButton.removeClass("hide");
+            weatherContent.removeClass("hide");
+        }
+    }
+}
